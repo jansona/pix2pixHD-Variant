@@ -11,6 +11,7 @@ import torch
 import cv2
 import time
 import re
+import numpy as np
 from glob import glob
 
 # 地图尺度与坐标位宽的映射
@@ -73,7 +74,7 @@ opt.batchSize = 1  # test code only supports batchSize = 1
 opt.serial_batches = True  # no shuffle
 opt.no_flip = True  # no flip
 
-data_loader = CreateDataLoader(opt)
+data_loader = CreateDataLoader(opt, "plain")
 dataset = data_loader.load_data()
 visualizer = Visualizer(opt)
 # create website

@@ -3,14 +3,15 @@ from data.base_dataset import BaseDataset, get_params, get_transform, normalize
 from data.image_folder import make_dataset
 from PIL import Image
 
-class AlignedDataset(BaseDataset):
+class PlainDataset(BaseDataset):
     def initialize(self, opt):
         self.opt = opt
         self.root = opt.dataroot    
 
         ### input A (label maps)
-        dir_A = '_A' if self.opt.label_nc == 0 else '_label'
-        self.dir_A = os.path.join(opt.dataroot, opt.phase + dir_A)
+        # dir_A = '_A' if self.opt.label_nc == 0 else '_label'
+        # self.dir_A = os.path.join(opt.dataroot, opt.phase + dir_A)
+        self.dir_A = opt.dataroot
         self.A_paths = sorted(make_dataset(self.dir_A))
 
         ### input B (real images)
@@ -73,4 +74,4 @@ class AlignedDataset(BaseDataset):
         return len(self.A_paths) // self.opt.batchSize * self.opt.batchSize
 
     def name(self):
-        return 'AlignedDataset'
+        return 'PlainDataset'
