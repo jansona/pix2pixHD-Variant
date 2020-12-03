@@ -21,6 +21,11 @@ zoom2width = {
     18: 6
 }
 
+def imread_n_resize(file_path, w=256, h=256):
+    raw_img = cv2.imread(file_path)
+    img_resized = cv2.resize(raw_img, (w, h), interpolation=cv2.INTER_NEAREST)
+    return img_resized
+
 def integrate_tiles(d_name, tile_mat):
 
     for line in tile_mat:
@@ -30,10 +35,10 @@ def integrate_tiles(d_name, tile_mat):
     
     def assemble_row(row_files):
         
-        tile_cated = cv2.imread(os.path.join(d_name, row_files[0]))
+        tile_cated = imread_n_resize(os.path.join(d_name, row_files[0]))
         
         for file in row_files[1:]:
-            temp_tile = cv2.imread(os.path.join(d_name, file))
+            temp_tile = imread_n_resize(os.path.join(d_name, file))
             array_temp = np.array(temp_tile)
             if array_temp.ndim == 0:
                 break
