@@ -1,7 +1,7 @@
 import os
 from collections import OrderedDict
 from torch.autograd import Variable
-from options.test_options import TestOptions
+from options.predict_options import PredictOptions
 from data.data_loader import CreateDataLoader
 from models.models import create_model
 import util.util as util
@@ -10,6 +10,7 @@ from util import html
 import torch
 import cv2
 import time
+import re
 from glob import glob
 
 # 地图尺度与坐标位宽的映射
@@ -19,14 +20,14 @@ zoom2width = {
     18: 6
 }
 
-def integrate_tiles(d_name, tile_mat) -> np.array:
+def integrate_tiles(d_name, tile_mat):
 
     for line in tile_mat:
         for tile in line:
             if not os.path.exists("{}/{}".format(d_name, tile)):
                 print(d_name, tile)
     
-    def assemble_row(row_files) -> np.array:
+    def assemble_row(row_files):
         
         tile_cated = cv2.imread(os.path.join(d_name, row_files[0]))
         
@@ -66,7 +67,7 @@ def statis_value(in_path, suffix):
     y_min,y_max = min(y_list),max(y_list)
     return x_min,x_max,y_min,y_max
 
-opt = TestOptions().parse(save=False)
+opt = PredictOptions().parse(save=False)
 opt.nThreads = 1   # test code only supports nThreads = 1
 opt.batchSize = 1  # test code only supports batchSize = 1
 opt.serial_batches = True  # no shuffle
@@ -134,7 +135,7 @@ in_path = web_dir
 # out_path = in_path[:-6] + "integrated"
 out_path = in_path
 
-temp_suffix_name = glob("{}/*".format(source_path))[0].split('.')[-1]
+temp_suffix_name = glob("{}/*".format(in_path))[0].split('.')[-1]
 
 x_min, x_max, y_min, y_max = statis_value(in_path, temp_suffix_name)
 x_size = x_max - x_min + 1
