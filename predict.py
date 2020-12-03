@@ -69,6 +69,7 @@ def statis_value(in_path, suffix):
     return x_min,x_max,y_min,y_max
 
 opt = PredictOptions().parse(save=False)
+opt.dataroot = opt.IMAGE_PATH
 opt.nThreads = 1   # test code only supports nThreads = 1
 opt.batchSize = 1  # test code only supports batchSize = 1
 opt.serial_batches = True  # no shuffle

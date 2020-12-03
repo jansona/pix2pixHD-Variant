@@ -16,5 +16,6 @@ class PredictOptions(BaseOptions):
         self.parser.add_argument("--onnx", type=str, help="run ONNX model via TRT")       
 
         self.parser.add_argument("--zoom", type=int, default=17, help="遥感数据尺度")
+        self.parser.add_argument("--IMAGE_PATH", type=str, required=True, help="输入图片文件或文件夹路径")
         self.parser.add_argument("--RESULT_PATH", type=str, help="最终结果路径")
         self.isTrain = False
