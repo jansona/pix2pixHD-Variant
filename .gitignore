@@ -38,3 +38,7 @@ test/.coverage
 test/data/legacy_serialized.pt
 *.DS_Store
 *~
+/apex
+my_results/
+history_new_results/
+nohup.out

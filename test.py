@@ -8,6 +8,7 @@ import util.util as util
 from util.visualizer import Visualizer
 from util import html
 import torch
+import time
 
 opt = TestOptions().parse(save=False)
 opt.nThreads = 1   # test code only supports nThreads = 1
@@ -35,6 +36,7 @@ if not opt.engine and not opt.onnx:
 else:
     from run_engine import run_trt_engine, run_onnx
     
+start_time = time.time()
 for i, data in enumerate(dataset):
     if i >= opt.how_many:
         break
@@ -63,5 +65,7 @@ for i, data in enumerate(dataset):
     img_path = data['path']
     print('process image... %s' % img_path)
     visualizer.save_images(webpage, visuals, img_path)
+end_time = time.time()
+print(end_time - start_time, "sec")
 
 webpage.save()
