@@ -156,7 +156,9 @@ for i in range(x_size):
     tile_files.append(temp_list)
 
 map_pic = integrate_tiles(in_path, tile_files)
-cv2.imwrite(opt.RESULT_PATH, map_pic)
+w, h, _ = map_pic.shape
+map_pic_normal_size = cv2.resize(map_pic, (w / 2, h / 2), interpolation=cv2.INTER_NEAREST)
+cv2.imwrite(opt.RESULT_PATH, map_pic_normal_size)
 
 # for root, dirs, files in os.walk(web_dir, topdown=False):
 #     for name in files:
