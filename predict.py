@@ -140,6 +140,7 @@ out_path = in_path
 temp_suffix_name = glob("{}/*".format(in_path))[0].split('.')[-1]
 
 x_min, x_max, y_min, y_max = statis_value(in_path, temp_suffix_name)
+print("x_min:", x_min, "x_max:", x_max, "y_min:", y_min, "y_max:", y_max)
 x_size = x_max - x_min + 1
 y_size = y_max - y_min + 1
 zoom = opt.zoom

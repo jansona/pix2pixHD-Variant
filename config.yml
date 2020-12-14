@@ -1,0 +1,56 @@
+dependencies:
+  framework: 
+    name: pytorch
+    version: 1.5.0
+  packages:
+  - name: dominate
+    version: 2.3.5
+  - name: numpy
+    version: 1.16.2
+  - name: opencv-python
+    version: 4.1.0.25
+  - name: opencv-python-headless
+    version: 4.4.0.46
+  - name: scipy
+    version: 1.2.0
+  - name: visdom
+    version: 0.1.8.8
+
+classes:
+  car,swimming_pool
+
+train:
+  script:
+    pix2pixHD-Varient/train_platform.py
+  inputParams:
+    TRAIN_FILE_PATH: SomeGoogleMap17/datasets/谷歌影像无标注谷歌地图无标注metadata/17/17_17aligned/
+    VAL_FILE_PATH: val # 无实际意义
+    niter: 10
+    niter_decay: 10
+  outputParams:
+    LOG_PATH: monitor
+    CHECKPOINT_PATH: latest_net_G_A.pth
+# 输出参数必须是文件路径或文件夹路径
+
+evaluate:
+  script:
+    pix2pixHD-Varient/test_platform.py
+  inputParams:
+    TEST_FILE_PATH: Chicago_GoogleMap_15/
+    MODEL_FILE: models/
+    name: sate15_to_map15_p2pHD
+    how_many: 450
+    label_nc: 0
+    model: pix2pixHD
+  outputParams:
+    RESULT_PATH: testResult.json
+    OUTPUT_PATH: /
+
+inference:
+  script:
+    SMAPGAN/predict.py
+  inputParams:
+    IMAGE_PATH: shanghai1010_Level17 # 可为图片文件或包含图片文件的文件夹
+    MODEL_FILE: latest_net_G_A.pth
+  outputParams:
+    RESULT_PATH: result.jpg

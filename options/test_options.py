@@ -13,5 +13,11 @@ class TestOptions(BaseOptions):
         self.parser.add_argument('--use_encoded_image', action='store_true', help='if specified, encode the real image to get the feature map')
         self.parser.add_argument("--export_onnx", type=str, help="export ONNX model to a given file")
         self.parser.add_argument("--engine", type=str, help="run serialized TRT engine")
-        self.parser.add_argument("--onnx", type=str, help="run ONNX model via TRT")        
+        self.parser.add_argument("--onnx", type=str, help="run ONNX model via TRT")    
+
+        self.parser.add_argument("--TEST_FILE_PATH", type=str, help="测试集路径")
+        self.parser.add_argument("--MODEL_FILE", type=str, help="导入模型文件，暂不可用")
+        self.parser.add_argument("--RESULT_PATH", type=str, help="输出日志文件")
+        self.parser.add_argument("--OUTPUT_PATH", type=str, help="输出文件夹")
+        self.parser.add_argument("--CLASSES", type=str, help="图形分类种类")
         self.isTrain = False
