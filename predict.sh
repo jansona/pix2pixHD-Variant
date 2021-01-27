@@ -1,0 +1,1 @@
+python3 predict.py --no_instance --label_nc 0 --IMAGE_PATH /data02/just_4_presentation/shanghai_GoogleSate_GaodeMap_15/imgs/ --model pix2pixHD --name shanghai_sate15_to_map15 --gpu_ids=0,1 --how_many=456 --RESULT_PATH /data02/just_4_presentation/shanghai_GoogleSate_GaodeMap_15/final.png --zoom 15
