@@ -145,6 +145,7 @@ out_path = in_path
 temp_suffix_name = glob("{}/*".format(in_path))[0].split('.')[-1]
 
 x_min, x_max, y_min, y_max = statis_value(in_path, temp_suffix_name)
+print("x_min:", x_min, "x_max:", x_max, "y_min:", y_min, "y_max:", y_max)
 x_size = x_max - x_min + 1
 y_size = y_max - y_min + 1
 zoom = opt.zoom
@@ -161,7 +162,9 @@ for i in range(x_size):
     tile_files.append(temp_list)
 
 map_pic = integrate_tiles(in_path, tile_files)
-cv2.imwrite(opt.RESULT_PATH, map_pic)
+w, h, _ = map_pic.shape
+map_pic_normal_size = cv2.resize(map_pic, (int(w / 2), int(h / 2)), interpolation=cv2.INTER_NEAREST)
+cv2.imwrite(opt.RESULT_PATH, map_pic_normal_size)
 
 # for root, dirs, files in os.walk(web_dir, topdown=False):
 #     for name in files:
